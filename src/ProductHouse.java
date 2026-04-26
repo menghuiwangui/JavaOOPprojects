@@ -1,16 +1,19 @@
-
 import java.util.Map;
+import java.util.HashMap;
 
 // 商品库
 public class ProductHouse {
-    private Map<String, Product> products; // 商品库
+    private Map<String, IProduct> products; // 商品库
+    public ProductHouse(){
+        products = new HashMap<>();
+    }
 
-    public void addProduct(Product product)  // 添加商品
+    void addProduct(IProduct product)  // 添加商品
     {
         products.put(product.getId(), product);
     }
 
-    public Product getProduct(String id)  // 按名字查询
+    IProduct getProduct(String id)  // 按名字查询
     {
         return products.get(id);
     }
@@ -22,14 +25,14 @@ public class ProductHouse {
 
     public void readProducts() // 查看所有商品
     {
-        for (Product product : products.values()) {
+        for (IProduct product : products.values()) {
             System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
         }
     }
 
     public void readSortedProducts(String category)  // 按类别查询
     {
-        for (Product product : products.values()) {
+        for (IProduct product : products.values()) {
             if (product.getCategory().equals(category))
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
         }

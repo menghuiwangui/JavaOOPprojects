@@ -1,17 +1,16 @@
 
-
 // 商品类接口 (可放入折扣运算)
 interface IProduct {
-    public String getId();
-    public String getName();
-    public double getPrice();
-    public int getStock();
-    public String getCategory();
-    public void setStock(int stock);
-    public void setCategory(String category);
-    public void setName(String name);
-    public void setPrice(double price);
-    public void setId(String id);
+    String getId();
+    String getName();
+    double getPrice();
+    int getStock();
+    String getCategory();
+    void setStock(int stock);
+    void setCategory(String category);
+    void setName(String name);
+    void setPrice(double price);
+    void setId(String id);
 }
 
 // 商品类
@@ -33,39 +32,30 @@ class Product implements IProduct {
     public String getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public double getPrice() {
         return price;
     }
-
     public int getStock() {
         return stock;
     }
-
     public String getCategory() {
         return category;
     }
-
     public void setStock(int stock) {
         this.stock = stock;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -73,7 +63,7 @@ class Product implements IProduct {
 
 // 商品工厂类
 public class ProductFactory {
-    public static IProduct createProduct(String id, String name, double price, int stock, String category) {
+    static IProduct createProduct(String id, String name, double price, int stock, String category) {
         return new Product(id, name, price, stock, category);
     }
 }

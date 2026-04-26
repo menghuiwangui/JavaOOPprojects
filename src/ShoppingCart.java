@@ -8,20 +8,20 @@ class CartItem {
     private Product product;     // 商品
     private int quantity;        // 数量
 
-    public void changeQuantity(int quantity)  // 修改数量
-    {
+    public CartItem(){
+        //product = ProductFactory.createProduct();
+    }
+    // 修改数量
+    public void changeQuantity(int quantity)  {
         this.quantity = quantity;
     }
-
-    public double calculateSubtotal() // 计算小计金额的方法
-    {
+    // 计算小计金额的方法
+    public double calculateSubtotal() {
         return product.getPrice() * quantity;
     }
-
     public Product getProduct() {
         return product;
     }
-
     public int getQuantity() {
         return quantity;
     }
