@@ -33,13 +33,13 @@ public class Order {
         status = 2;
     }
 
-    public void receive() // 收货
+    public void receive() // 收货,对应的OrderList类中的订单也要删除
     {
         System.out.println("商品已收货!");
         status = 3;
     }
 
-    public void cancel(Map<String, Product> products) // 取消
+    public void cancel(Map<String, Product> products) // 取消,对应的OrderList类中的订单也要删除
     {
         System.out.println("订单已取消!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() + item.getQuantity()); // 取消后，数量入库

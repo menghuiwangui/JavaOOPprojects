@@ -44,7 +44,9 @@ public class ShoppingCart {
                 && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
         {
             items.add(item);
-        } else {
+        } 
+        else 
+        {
             System.out.println("库存不足！或商品不存在！");
         }
         // 时间获取应为本地时间,用于后续订单号使用
@@ -90,11 +92,12 @@ public class ShoppingCart {
         this.createTime = createTime;
     }
 
-    Order getOrder(IProduct product)  // 生成订单
+    public Order getOrder(IProduct product)  // 生成订单
     {
         for (CartItem item : items) {
             if (item.getProduct().getId().equals(product.getId())) {
                 Order order = new Order(item);
+                System.out.println("已生成订单: " + order.getOrderId());
                 return order;
             }
         }
@@ -102,6 +105,13 @@ public class ShoppingCart {
         return null;
     }
 
+    public void printItems()  // 打印购物车项
+    {
+        for (CartItem item : items) 
+        {
+            System.out.println(item.getProduct().getName() + " 数量：" + item.getQuantity());
+        }
+    }
 
     // ... 添加商品、删除商品、修改数量、计算总价
 }

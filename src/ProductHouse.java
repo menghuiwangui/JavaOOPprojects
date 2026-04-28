@@ -62,7 +62,17 @@ public class ProductHouse {
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
         }
     }
-    Map<String, IProduct> returnProducts(){
+
+    public void readNameProducts(String name)  // 按名字查询
+    {
+        if (IProduct product : products.values())
+        {
+            if (product.getName().equals(name))
+                System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+        }
+    }
+
+    public Map<String, IProduct> returnProducts(){
         return this.products;
     }
 }
