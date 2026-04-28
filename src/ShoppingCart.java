@@ -5,11 +5,12 @@ import java.util.ArrayList;
 
 // 购物车项
 class CartItem {
-    private Product product;     // 商品
+    private IProduct product;     // 商品
     private int quantity;        // 数量
 
-    public CartItem(){
-        //product = ProductFactory.createProduct();
+    public CartItem(IProduct product,int quantity){
+        this.product = product;
+        this.quantity = quantity;
     }
     // 修改数量
     public void changeQuantity(int quantity)  {
@@ -19,7 +20,7 @@ class CartItem {
     public double calculateSubtotal() {
         return product.getPrice() * quantity;
     }
-    public Product getProduct() {
+    public IProduct getProduct() {
         return product;
     }
     public int getQuantity() {
@@ -37,7 +38,7 @@ public class ShoppingCart {
         createTime = new Date();
     }
 
-    public void addProducts(CartItem item, Map<String, Product> products)  // 添加商品
+    void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
     {
         if (products.containsKey(item.getProduct().getId())
                 && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
@@ -50,12 +51,12 @@ public class ShoppingCart {
         // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串
     }
 
-    public void removeProduct(CartItem item)  // 删除商品
+    void removeProduct(CartItem item)  // 删除商品
     {
         items.remove(item);
     }
 
-    public void modifyQuantity(CartItem item, int quantity)  // 修改数量
+    void modifyQuantity(CartItem item, int quantity)  // 修改数量
     {
         items.get(items.indexOf(item)).changeQuantity(quantity);
     }
@@ -76,7 +77,7 @@ public class ShoppingCart {
         }
     }
 
-    public List<CartItem> getItems() {
+    List<CartItem> getItems() {
         return items;
     }
 
@@ -89,7 +90,7 @@ public class ShoppingCart {
         this.createTime = createTime;
     }
 
-    public Order getOrder(Product product)  // 生成订单
+    Order getOrder(IProduct product)  // 生成订单
     {
         for (CartItem item : items) {
             if (item.getProduct().getId().equals(product.getId())) {

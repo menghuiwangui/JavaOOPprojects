@@ -63,7 +63,7 @@ class Product implements IProduct {
 
 // 商品工厂类
 public class ProductFactory {
-    static IProduct createProduct(String id, String name, double price, int stock, String category) {
+    static Product createProduct(String id, String name, double price, int stock, String category) {
         return new Product(id, name, price, stock, category);
     }
 }

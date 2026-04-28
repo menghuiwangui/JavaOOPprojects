@@ -8,7 +8,7 @@ public class ProductHouse {
         products = new HashMap<>();
     }
 
-    public boolean addProduct(IProduct product)  // 添加商品  ######
+    boolean addProduct(IProduct product)  // 添加商品  ######
     {
         if (!products.containsKey(product.getId())){
             System.out.println("添加商品成功!");
@@ -24,7 +24,7 @@ public class ProductHouse {
         }
     }
 
-    public IProduct getProduct(String id)  // 按名字查询
+    IProduct getProduct(String id)  // 按id查询
     {
         return products.get(id);
     }
@@ -46,6 +46,10 @@ public class ProductHouse {
 
     public void readProducts() // 查看所有商品
     {
+        if(products.isEmpty()){
+            System.out.println("当前商品库里暂无商品!");
+            return;
+        }
         for (IProduct product : products.values()) {
             System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
         }
@@ -57,5 +61,8 @@ public class ProductHouse {
             if (product.getCategory().equals(category))
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
         }
+    }
+    Map<String, IProduct> returnProducts(){
+        return this.products;
     }
 }
