@@ -2,8 +2,14 @@ import java.util.Scanner;
 public class Main {
     static ProductHouse  ph = new ProductHouse();  //商品库
     static ShoppingCart sc = new ShoppingCart();   //购物车
+    static boolean usAndma = false;//manager->true  user->false
     public static void main(String[] args) {
-        mainMenu();
+        try{
+            mainMenu();
+        }
+        catch(StackOverflowError e){
+
+        }
     }
     public static void mainMenu(){
         System.out.println("=".repeat(20)+"简易电商购物车系统"+"=".repeat(20));
@@ -26,6 +32,7 @@ public class Main {
         }
     }
     public static void managerMune(){
+        usAndma = true;
         System.out.println("=".repeat(20)+"管理员:简易电商购物车系统"+"=".repeat(20));
         System.out.println("功能：");
         System.out.println("1.商品上架");
@@ -55,6 +62,7 @@ public class Main {
         managerMune();
     }
     public static void userMenu(){
+        usAndma = false;
         System.out.println("=".repeat(20)+"用户：简易电商购物车系统"+"=".repeat(20));
         System.out.println("功能：");
         System.out.println("1.商品浏览");
@@ -92,7 +100,34 @@ public class Main {
         userMenu();
     }
     public static void productsBrowse(){
-        ph.readProducts();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("=".repeat(20)+"商品查询"+"=".repeat(20));
+        System.out.println("1.浏览所有商品");
+        System.out.println("2.按名字查询");
+        System.out.println("3.按类别筛选");
+        System.out.println("4.返回上一级菜单");
+        System.out.println("5.退出电商购物车系统");
+        int n = scanner.nextInt();
+        switch (n){
+            case 1:
+                ph.readProducts();
+            case 2:
+                //按名字查询？？？
+            case 3:
+                String category = scanner.nextLine();
+                ph.readSortedProducts(category);
+            case 4:
+                if(usAndma){
+                    managerMune();
+                }
+                else{
+                    userMenu();
+                }
+            case 5:
+                System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                System.exit(0);
+        }
+        productsBrowse();
     }
     public static void productAdd(){
         Scanner scanner = new Scanner(System.in);
@@ -149,6 +184,17 @@ public class Main {
                 //接口不好
                 CartItem item = null;
                 sc.removeProduct(item);
+            case 3:
+                //修改商品数量
+            case 4:
+                System.out.println(sc.calculateTotalAmount());
+            case 5:
+                sc.emptyCart();//函数不对
+            case 6:
+                userMenu();
+            case 7:
+                System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                System.exit(0);
         }
 
     }
