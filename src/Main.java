@@ -1,14 +1,19 @@
+import java.util.List;
 import java.util.Scanner;
 public class Main {
-    static ProductHouse  ph = new ProductHouse();  //商品库
-    static ShoppingCart sc = new ShoppingCart();   //购物车
+    static ProductHouse  ph;  //商品库
+    static ShoppingCart sc;  //购物车
+    static OrderList ol;
     static boolean usAndma = false;//manager->true  user->false
     public static void main(String[] args) {
+        sc = new ShoppingCart();
+        ph = new ProductHouse();
+        ol = new OrderList();
         try{
             mainMenu();
         }
         catch(StackOverflowError e){
-
+            System.out.println("捕获到栈溢出错误");
         }
     }
     public static void mainMenu(){
@@ -21,14 +26,25 @@ public class Main {
         int n = scanner.nextInt();
         switch(n){
             case 1:
-                managerMune();
+                try{
+                    managerMune();
+                }
+                catch(StackOverflowError e){
+                    System.out.println("捕获到栈溢出错误");
+                }
                 break;
             case 2:
-                userMenu();
+                try{
+                    userMenu();
+                }
+                catch(StackOverflowError e){
+                    System.out.println("捕获到栈溢出错误");
+                }
                 break;
             case 3:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                 System.exit(0);
+                break;
         }
     }
     public static void managerMune(){
@@ -53,11 +69,17 @@ public class Main {
                 productsBrowse();
                 break;
             case 4:
-                mainMenu();
+                try{
+                    mainMenu();
+                }
+                catch(StackOverflowError e){
+                    System.out.println("捕获到栈溢出错误");
+                }
                 break;
             case 5:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                 System.exit(0);
+                break;
         }
         managerMune();
     }
@@ -96,6 +118,7 @@ public class Main {
             case 7:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                 System.exit(0);
+                break;
         }
         userMenu();
     }
@@ -111,11 +134,15 @@ public class Main {
         switch (n){
             case 1:
                 ph.readProducts();
+                break;
             case 2:
-                //按名字查询？？？
+                String name = scanner.nextLine();
+                ph.readNameProducts(name);
+                break;
             case 3:
                 String category = scanner.nextLine();
                 ph.readSortedProducts(category);
+                break;
             case 4:
                 if(usAndma){
                     managerMune();
@@ -123,9 +150,11 @@ public class Main {
                 else{
                     userMenu();
                 }
+                break;
             case 5:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                 System.exit(0);
+                break;
         }
         productsBrowse();
     }
@@ -176,32 +205,70 @@ public class Main {
         System.out.println("7.退出电商购物车系统");
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
+        List<CartItem> items = sc.getItems();
+        String id;
         switch (n){
             case 1:
-                //ShoppingCart类中浏览全部的接口
+                if(items.isEmpty()){
+                    System.out.println("购物车内无商品");
+                    break;
+                }
+                else{
+                    for(CartItem item : items){
+                        IProduct product = item.getProduct();
+                        System.out.println(product.getId()+product.getName()+product.getPrice()+product.getCategory()+item.getQuantity());
+                    }
+                }
+                break;
             case 2:
-                //选择购物项，再删除/
-                //接口不好
-                CartItem item = null;
-                sc.removeProduct(item);
+                System.out.println("请输入要删除的商品ID");
+                id = scanner.nextLine();
+                for(CartItem item : items){
+                    IProduct product = item.getProduct();
+                    if(product.getId().equals(id)){
+                        sc.removeProduct(item);
+                    }
+                }
+                break;
             case 3:
-                //修改商品数量
+                System.out.println("请输入要修改数量的商品ID");
+                id = scanner.nextLine();
+                System.out.println("请输入要修改的数量");
+                int num = scanner.nextInt();
+                for(CartItem item : items){
+                    IProduct product = item.getProduct();
+                    if(product.getId().equals(id)){
+                        sc.modifyQuantity(item,num);
+                    }
+                }
+                break;
             case 4:
                 System.out.println(sc.calculateTotalAmount());
+                break;
             case 5:
                 sc.emptyCart();//函数不对
+                break;
             case 6:
                 userMenu();
+                break;
             case 7:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                 System.exit(0);
+                break;
         }
 
     }
     public static void orderPlace(){
-
+        //下单结算
+        //将订单添加到ol
+        //ol.addOrder()
     }
     public static void myOrder(){
-
+        if(ol.returnOrders().isEmpty()){
+            System.out.println("暂时没有订单");
+        }
+        else{
+            ol.showAllOrders();
+        }
     }
 }

@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+enum OrderStatus{
+
+}
+
 public class OrderList 
 {
     private ArrayList<Order> orderList;
@@ -24,5 +28,8 @@ public class OrderList
         {
             System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount());
         }
+    }
+    public ArrayList<Order> returnOrders(){
+        return orderList;
     }
 }
