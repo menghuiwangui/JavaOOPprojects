@@ -1,5 +1,6 @@
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Objects;
 
 // 商品库
 public class ProductHouse {
@@ -26,7 +27,11 @@ public class ProductHouse {
 
     IProduct getProduct(String id)  // 按id查询
     {
-        return products.get(id);
+        if (products.containsKey(id))
+            return products.get(id);
+        else 
+            System.out.println("商品不存在!");
+        return null;
     }
 
     public boolean removeProduct(String id)  // 删除商品  ######
@@ -57,18 +62,45 @@ public class ProductHouse {
 
     public void readSortedProducts(String category)  // 按类别查询
     {
+        boolean found = false;
         for (IProduct product : products.values()) {
-            if (product.getCategory().equals(category))
+            if (Objects.equals(product.getCategory(),category))
+            {
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+                found = true;
+            }
+            else if (product.getName().equalsIgnoreCase(category))  // 添加模糊查询功能
+            {
+                System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+                found = true;
+            }
+        }
+        
+        if (!found)
+        {
+            System.out.println("没有找到类别为: " + category + " 的商品!");
         }
     }
 
     public void readNameProducts(String name)  // 按名字查询
     {
-        if (IProduct product : products.values())
+        boolean found = false;
+        for (IProduct product : products.values())
         {
-            if (product.getName().equals(name))
+            if (Objects.equals(product.getName(),name))
+            {
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+                found = true;
+            }
+            else if (product.getName().equalsIgnoreCase(name))  // 添加模糊查询功能
+            {
+                System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+                found = true;
+            }
+            
+            if (!found){
+                System.out.println("没有找到名称为: " + name + " 的商品!");
+            }
         }
     }
 

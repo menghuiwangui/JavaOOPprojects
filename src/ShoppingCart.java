@@ -98,6 +98,7 @@ public class ShoppingCart {
             if (item.getProduct().getId().equals(product.getId())) {
                 Order order = new Order(item);
                 System.out.println("已生成订单: " + order.getOrderId());
+                removeProduct(item);  // 生成订单之后,直接在购物车内删除
                 return order;
             }
         }
