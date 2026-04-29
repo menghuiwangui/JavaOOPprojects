@@ -22,11 +22,12 @@ public class Main
     public static void mainMenu(){
         while(true){
             System.out.println("\n\n" + "==========================" + "简易电商购物车系统" + "==========================");
-            System.out.println("选择你的身份(输入数字 1 or 2 or 3)：");
+            System.out.println("选择你的身份(输入数字 1 or 2 or 3):");
             System.out.println("1.管理员");
             System.out.println("2.用户");
             System.out.println("3.退出电商购物车系统");
             int n = scanner.nextInt();
+            scanner.nextLine();
             switch(n)
             {
                 case 1:
@@ -67,6 +68,7 @@ public class Main
             System.out.println("4.返回上一级菜单");
             System.out.println("5.退出电商购物车系统");
             int n = scanner.nextInt();
+            scanner.nextLine();
             switch(n)
             {
                 case 1:
@@ -110,6 +112,7 @@ public class Main
             System.out.println("7.返回上一级菜单");
             System.out.println("8.退出电商购物车系统");
             int n = scanner.nextInt();
+            scanner.nextLine();
             switch(n){
                 case 1:  // 暂无问题
                     productsBrowse();
@@ -212,6 +215,7 @@ public class Main
         IProduct product = ph.getProduct(id);
         System.out.println("请输入需要购买的商品数量");
         int num = scanner.nextInt();
+        scanner.nextLine();
         CartItem cartItem = new CartItem(product,num);
         sc.addProducts(cartItem,ph.returnProducts());
     }
@@ -307,6 +311,7 @@ public class Main
             System.out.println("2.部分生成");
             System.out.println("3.返回上一级菜单");
             int n = scanner.nextInt();
+            scanner.nextLine();
             switch (n){
                 case 1:
                     List<CartItem> items = sc.getItems();
