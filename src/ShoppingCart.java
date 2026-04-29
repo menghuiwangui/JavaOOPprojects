@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 // 购物车项
-class CartItem {
+class CartItem 
+{
     private final IProduct product;     // 商品
     private int quantity;        // 数量
 
@@ -29,7 +30,8 @@ class CartItem {
 }
 
 // 购物车
-public class ShoppingCart {
+public class ShoppingCart 
+{
     private final List<CartItem> items;  // 购物车项
     private Date createTime;       // 创建时间
 
@@ -53,11 +55,18 @@ public class ShoppingCart {
         if (products.containsKey(item.getProduct().getId())
                 && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
         {
-            items.add(item);
+            if (items.contains(item))
+            {
+                modifyQuantity(item,item.getQuantity() + items.get(items.indexOf(item)).getQuantity());
+            }
+            else
+            {
+                items.add(item);
+            }
         } 
         else 
         {
-            System.out.println("库存不足！或商品不存在！");
+            System.out.println("库存不足！");
         }
         // 时间获取应为本地时间,用于后续订单号使用
         // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串

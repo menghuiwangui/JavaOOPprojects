@@ -11,7 +11,7 @@ public class ProductHouse {
 
     boolean addProduct(IProduct product)  // 添加商品  ######
     {
-        if (!products.containsKey(product.getId())){
+        if (!products.containsKey(product.getId()) && product.getId()!= null && product.getName()!= null && product.getPrice()!= 0 && product.getStock()!= 0 && product.getCategory()!= null){
             System.out.println("添加商品成功!");
             System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
             products.put(product.getId(), product);
