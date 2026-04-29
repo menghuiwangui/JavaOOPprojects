@@ -18,13 +18,11 @@ public class Main
             System.out.println("捕获到栈溢出错误");
         }
     }
-    public static void mainMenu() // 主菜单 暂无问题
-    {
-
+    public static void mainMenu(){
         Scanner scanner = new Scanner(System.in);
-        while (true)
-        {
-            System.out.println("\n\n" + "==========================" + "简易电商购物车系统" + "==========================");
+        boolean running = true;
+        while(running){
+            System.out.println("\n\n" + "=".repeat(20) + "简易电商购物车系统" + "=".repeat(20));
             System.out.println("选择你的身份(输入数字 1 or 2 or 3)：");
             System.out.println("1.管理员");
             System.out.println("2.用户");
@@ -49,9 +47,12 @@ public class Main
                     }
                     break;
                 case 3:
+                    running = false;
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
                     System.exit(0);
                     break;
+                default:
+                    System.out.println("无效选择，请重新输入！");
             }
         }
         scanner.close();
@@ -96,6 +97,8 @@ public class Main
                     System.out.println("输入错误，请重新输入");
             }
         }
+        scanner.close();
+        managerMune();
     }
     public static void userMenu()  // 用户菜单
     {
@@ -142,6 +145,8 @@ public class Main
                     break;
             }
         }
+        scanner.close();
+        userMenu();
     }
     public static void productsBrowse()  // 暂无问题
     {
@@ -170,8 +175,8 @@ public class Main
                 System.exit(0);
                 break;
         }
-        if (usAndma)
-        {
+        scanner.close();
+        if(usAndma){
             managerMune();
         }
         else
@@ -202,6 +207,7 @@ public class Main
         {
             System.out.println("添加商品成功");
         }
+        scanner.close();
     }
     public static void productRemove()  // 暂无问题
     {
@@ -211,6 +217,7 @@ public class Main
         if(ph.removeProduct(id) == false){
             System.out.printf("商品:[%s %s] 下架失败%n", id, ph.getProduct(id).getName());
         }
+        scanner.close();
     }
     public static void cartAdd()  // 
     {
@@ -222,6 +229,7 @@ public class Main
         int num = scanner.nextInt();
         CartItem cartItem = new CartItem(product,num);
         sc.addProducts(cartItem,ph.returnProducts());
+        scanner.close();
     }
 
     public static void cartManager()
@@ -325,8 +333,8 @@ public class Main
                     id = scanner.nextLine();
                 }
                 break;
-
         }
+        scanner.close();
     }
     public static void myOrder(){
         if(ol.returnOrders().isEmpty()){
@@ -400,5 +408,6 @@ public class Main
                 System.exit(0);
                 break;
         }
+        scanner.close();
     }
 }
