@@ -88,6 +88,7 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
         managerMune();
     }
     public static void userMenu(){
@@ -131,6 +132,7 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
         userMenu();
     }
     public static void productsBrowse(){
@@ -159,6 +161,7 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
         if(usAndma){
             managerMune();
         }
@@ -183,6 +186,7 @@ public class Main {
         if(ph.addProduct(product) == false){
             System.out.println("添加商品失败");
         }
+        scanner.close();
     }
     public static void productRemove(){
         Scanner scanner = new Scanner(System.in);
@@ -191,6 +195,7 @@ public class Main {
         if(ph.removeProduct(id) == false){
             System.out.println("商品:[{id} {ph.getProduct(id).getName()}] 下架失败");
         }
+        scanner.close();
     }
     public static void cartAdd(){
         Scanner scanner = new Scanner(System.in);
@@ -201,6 +206,7 @@ public class Main {
         int num = scanner.nextInt();
         CartItem cartItem = new CartItem(product,num);
         sc.addProducts(cartItem,ph.returnProducts());
+        scanner.close();
     }
     public static void cartManager(){
         System.out.println("\n\n" + "=".repeat(20) + "用户：购物车管理" + "=".repeat(20));
@@ -264,6 +270,7 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
         cartManager();
     }
     public static void orderPlace(){
@@ -298,8 +305,8 @@ public class Main {
                     id = scanner.nextLine();
                 }
                 break;
-
         }
+        scanner.close();
     }
     public static void myOrder(){
         if(ol.returnOrders().isEmpty()){
@@ -373,5 +380,6 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
     }
 }
