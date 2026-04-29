@@ -93,4 +93,13 @@ public class OrderList
     public ArrayList<Order> returnOrders(){
         return orderList;
     }
+    //依据订单号查询
+    public Order getOrder(String orderId){
+        for(Order order : orderList){
+            if(order.getOrderId().equals(orderId)){
+                return order;
+            }
+        }
+        return null;
+    }
 }

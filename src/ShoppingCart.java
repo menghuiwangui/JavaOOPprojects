@@ -98,10 +98,16 @@ public class ShoppingCart {
     {
         for (CartItem item : items) {
             if (item.getProduct().getId().equals(product.getId())) {
-                Order order = new Order(item);
-                System.out.println("已生成订单: " + order.getOrderId());
-                removeProduct(item);  // 生成订单之后,直接在购物车内删除
-                return order;
+                try{
+                    Order order = new Order(item);
+                    System.out.println("已生成订单: " + order.getOrderId());
+                    removeProduct(item);  // 生成订单之后,直接在购物车内删除
+                    return order;
+                }
+                catch(IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+
             }
         }
         System.out.println("商品不存在！");

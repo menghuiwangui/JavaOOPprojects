@@ -38,7 +38,7 @@ public class Order {
         status = 1;
     }
 
-    void deliver(Map<String, Product> products) // 发货
+    void deliver(Map<String, IProduct> products) // 发货
     {
         System.out.println("商品已发货!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() - item.getQuantity()); // 发货后，数量出库
@@ -51,7 +51,7 @@ public class Order {
         status = 3;
     }
 
-    void cancel(Map<String, Product> products) // 取消,对应的OrderList类中的订单也要删除
+    void cancel(Map<String, IProduct> products) // 取消,对应的OrderList类中的订单也要删除
     {
         System.out.println("订单已取消!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() + item.getQuantity()); // 取消后，数量入库
