@@ -83,7 +83,7 @@ public class OrderList
                     else{
                         description = "状态异常";
                     }
-                    System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount() + description);
+                        System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount() + description);
                 }
             }
         }

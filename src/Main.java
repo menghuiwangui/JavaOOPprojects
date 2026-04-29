@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
 public class Main 
 {
     static ProductHouse ph;  //商品库
@@ -48,7 +50,6 @@ public class Main
                     break;
                 case 3:
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                    System.exit(0);
                     break;
                 default:
                     System.out.println("无效选择，请重新输入！");
@@ -90,7 +91,6 @@ public class Main
                     break;
                 case 5:
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                    System.exit(0);
                 default:
                     System.out.println("输入错误，请重新输入");
             }
@@ -137,7 +137,6 @@ public class Main
                     break;
                 case 8:
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                    System.exit(0);
                     break;
             }
         }
@@ -165,10 +164,8 @@ public class Main
                 break;
             case 4:
                 System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                System.exit(0);
                 break;
         }
-        scanner.close();
         if(usAndma){
             managerMune();
         }
@@ -298,61 +295,54 @@ public class Main
                     break;
                 case 7:
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                    System.exit(0);
                     break;
             }
         }  
     }
-    public static void orderPlace(){
-        while (true)
-        {
-            System.out.println("\n\n" + "==========================" + "订单生成" + "==========================");
-            System.out.println("1.全部生成");
-            System.out.println("2.部分生成");
-            System.out.println("3.返回上一级菜单");
-            int n = scanner.nextInt();
-            scanner.nextLine();
-            switch (n){
-                case 1:
-                    List<CartItem> items = sc.getItems();
-                    if(items.isEmpty()){
-                        System.out.println("购物车内无商品");
-                        break;
-                    }
-                    else{
-                        for(CartItem item : items){
-                            IProduct product = item.getProduct();
-                            if (product != null){
-                                Order order = sc.getOrder(product);
-                                ol.addOrder(order);
-                            }
-                        }
-                    }
+public static void orderPlace(){
+        System.out.println("\n\n" + "==========================" + "订单生成" + "==========================");
+        System.out.println("1.全部生成");
+        System.out.println("2.部分生成");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        switch (n){
+            case 1:
+                List<CartItem> items = sc.getItems();
+                if(items.isEmpty()){
+                    System.out.println("购物车内无商品");
                     break;
-                case 2:
-                    sc.printItems();
-                    System.out.println("请输入想要下单的商品ID：(如果想结束下单请输入over)");
-                    String id = scanner.nextLine();
-                    while(!"over".equalsIgnoreCase(id)){
-                        IProduct product = ph.getProduct(id);
-                        if (product != null){
-                            Order order = sc.getOrder(product);
-                            ol.addOrder(order);
-                            System.out.println("商品[" + id + "]生成订单成功");
+                }
+                else{
+                    List<Order> successfulOrders = new ArrayList<>();
+                    Iterator<CartItem> iterator = items.iterator();
+                    while (iterator.hasNext()) {
+                        CartItem item = iterator.next();
+                        IProduct product = item.getProduct();
+                        try {
+                            Order order = new Order(item);
+                            successfulOrders.add(order);
+                            iterator.remove();
+                            System.out.println("已生成订单: " + order.getOrderId());
+                        } catch (IllegalArgumentException e) {
+                            System.err.println("生成订单失败 for product " + product.getId() + ": " + e.getMessage());
                         }
-                        else 
-                        {
-                            System.out.println("商品[" + id + "]不存在，跳过");
-                        }
-                        id = scanner.nextLine();
                     }
-                    break;
-                case 3:
-                    return;  // 返回上一级菜单
-                default:
-                    System.out.println("输入错误，请重新输入");
-                
-            }
+                    for (Order order : successfulOrders) {
+                        ol.addOrder(order);
+                    }
+                }
+                break;
+            case 2:
+                sc.printItems();
+                System.out.println("请输入想要下单的商品ID：(如果想结束下单请输入over)");
+                String id = scanner.nextLine();
+                while(!"over".equalsIgnoreCase(id)){
+                    IProduct product = ph.getProduct(id);
+                    Order order = sc.getOrder(product);
+                    ol.addOrder(order);
+                    id = scanner.nextLine();
+                }
+                break;
         }
     }
     public static void myOrder(){
@@ -426,7 +416,6 @@ public class Main
                     userMenu();
                 case 6:
                     System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                    System.exit(0);
                     break;
             }
         }

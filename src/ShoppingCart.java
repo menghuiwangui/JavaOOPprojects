@@ -2,6 +2,7 @@ import java.util.Map;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // 购物车项
 class CartItem 
@@ -103,20 +104,21 @@ public class ShoppingCart
         return items;
     }
 
-    Order getOrder(IProduct product)  // 生成订单
-    {
-        for (CartItem item : items) {
-            if (item.getProduct().getId().equals(product.getId())) {
-                try{
-                    Order order = new Order(item);
-                    System.out.println("已生成订单: " + order.getOrderId());
-                    removeProduct(item);  // 生成订单之后,直接在购物车内删除
-                    return order;
+Order getOrder(IProduct product) {
+        Iterator<CartItem> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            CartItem item = iterator.next();
+            if (item != null && item.getProduct() != null && product != null) {
+                if (item.getProduct().getId().equals(product.getId())) {
+                    try {
+                        Order order = new Order(item);
+                        System.out.println("已生成订单: " + order.getOrderId());
+                        iterator.remove();
+                        return order;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
-                catch(IllegalArgumentException e){
-                    System.out.println(e.getMessage());
-                }
-
             }
         }
         System.out.println("商品不存在！");
