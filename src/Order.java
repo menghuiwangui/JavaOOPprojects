@@ -70,10 +70,6 @@ public class Order {
         return item;
     }
 
-    public int returnStatus(){
-        return status;
-    }
-
     public Date getOrderTime() {
         return orderTime;
     }

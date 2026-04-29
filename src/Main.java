@@ -54,6 +54,7 @@ public class Main
                     break;
             }
         }
+        scanner.close();
     }
     public static void managerMune()  // 管理员菜单 暂无问题
     {
@@ -216,19 +217,13 @@ public class Main
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入要加入购物车的商品ID");
         String id = scanner.nextLine();
-        if (ph.getProduct(id) == null)
-        {
-            System.out.println("商品不存在!");
-        }
-        else
-        {
-            IProduct product = ph.getProduct(id);
-            System.out.println("请输入需要购买的商品数量");
-            int num = scanner.nextInt();
-            CartItem cartItem = new CartItem(product,num);
-            sc.addProducts(cartItem,ph.returnProducts());
-        }
+        IProduct product = ph.getProduct(id);
+        System.out.println("请输入需要购买的商品数量");
+        int num = scanner.nextInt();
+        CartItem cartItem = new CartItem(product,num);
+        sc.addProducts(cartItem,ph.returnProducts());
     }
+
     public static void cartManager()
     {
         Scanner scanner = new Scanner(System.in);

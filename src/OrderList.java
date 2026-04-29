@@ -75,7 +75,7 @@ public class OrderList
             {
                 if (order != null)
                 {
-                    OrderStatus status = OrderStatus.getByCode(order.returnStatus());
+                    OrderStatus status = OrderStatus.getByCode(order.getStatus());
                     String description;
                     if(status!=null){
                         description = status.getDescription();
