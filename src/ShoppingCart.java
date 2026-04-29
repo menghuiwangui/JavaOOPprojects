@@ -38,7 +38,7 @@ public class ShoppingCart {
         createTime = new Date();
     }
 
-    void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
+    public void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
     {
         if (products.containsKey(item.getProduct().getId())
                 && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
@@ -53,12 +53,12 @@ public class ShoppingCart {
         // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串
     }
 
-    void removeProduct(CartItem item)  // 删除商品
+    public void removeProduct(CartItem item)  // 删除商品
     {
         items.remove(item);
     }
 
-    void modifyQuantity(CartItem item, int quantity)  // 修改数量
+    public void modifyQuantity(CartItem item, int quantity)  // 修改数量
     {
         items.get(items.indexOf(item)).changeQuantity(quantity);
     }
@@ -79,7 +79,7 @@ public class ShoppingCart {
         }
     }
 
-    List<CartItem> getItems() {
+    public List<CartItem> getItems() {
         return items;
     }
 
@@ -110,7 +110,9 @@ public class ShoppingCart {
     {
         for (CartItem item : items) 
         {
-            System.out.println(item.getProduct().getName() + " 数量：" + item.getQuantity());
+            if (item != null){
+                System.out.println(item.getProduct().getName() + " 数量：" + item.getQuantity());
+            }
         }
     }
 

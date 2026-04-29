@@ -20,7 +20,7 @@ public class ProductHouse {
         else 
         {
             System.out.println("商品已存在!");
-             System.out.println("存在的商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
+            System.out.println("存在的商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
             return false;
         }
     }

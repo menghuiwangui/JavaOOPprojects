@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-enum OrderStatus{
-
-}
 
 public class OrderList 
 {
@@ -24,10 +21,18 @@ public class OrderList
 
     public void showAllOrders()  // 输出所有订单
     {
-        for (Order order : orderList) 
+        if (!orderList.isEmpty()) 
         {
-            System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount());
+            for (Order order : orderList) 
+            {
+                if (order != null)
+                {
+                    System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount());
+                }
+            }
         }
+        else
+            System.out.println("没有订单!");
     }
     public ArrayList<Order> returnOrders(){
         return orderList;
