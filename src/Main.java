@@ -135,6 +135,7 @@ public class Main {
         System.out.println("3.按类别筛选");
         System.out.println("4.退出电商购物车系统");
         int n = scanner.nextInt();
+        scanner.nextLine();
         switch (n){
             case 1:
                 ph.readProducts();
@@ -169,6 +170,7 @@ public class Main {
         double price = scanner.nextDouble();
         System.out.println("请输入上架商品的库存:");
         int stock = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("请输入上架商品的分类:");
         String category = scanner.nextLine();
         IProduct product = ProductFactory.createProduct(id,name,price,stock,category);
@@ -223,6 +225,7 @@ public class Main {
                 }
                 break;
             case 3:
+                scanner.nextLine();
                 System.out.println("请输入要修改数量的商品ID");
                 id = scanner.nextLine();
                 System.out.println("请输入要修改的数量");

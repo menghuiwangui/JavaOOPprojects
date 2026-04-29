@@ -124,7 +124,7 @@ public class ShoppingCart {
         {
             if (item != null){
                 IProduct product = item.getProduct();
-                System.out.println(product.getId()+product.getName()+product.getPrice()+product.getCategory()+item.getQuantity());
+                System.out.println(product.getId()+" "+product.getName()+" "+product.getPrice()+" "+product.getCategory()+" "+item.getQuantity());
             }
         }
     }
