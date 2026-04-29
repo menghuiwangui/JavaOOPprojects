@@ -17,36 +17,42 @@ public class Main {
         }
     }
     public static void mainMenu(){
-
-        System.out.println("\n\n" + "=".repeat(20) + "简易电商购物车系统" + "=".repeat(20));
-        System.out.println("选择你的身份(输入数字 1 or 2 or 3)：");
-        System.out.println("1.管理员");
-        System.out.println("2.用户");
-        System.out.println("3.退出电商购物车系统");
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        switch(n){
-            case 1:
-                try{
-                    managerMune();
-                }
-                catch(StackOverflowError e){
-                    System.out.println("捕获到栈溢出错误");
-                }
-                break;
-            case 2:
-                try{
-                    userMenu();
-                }
-                catch(StackOverflowError e){
-                    System.out.println("捕获到栈溢出错误");
-                }
-                break;
-            case 3:
-                System.out.println("简易电商购物车系统正在退出，感谢您的使用");
-                System.exit(0);
-                break;
+        boolean running = true;
+        while(running){
+            System.out.println("\n\n" + "=".repeat(20) + "简易电商购物车系统" + "=".repeat(20));
+            System.out.println("选择你的身份(输入数字 1 or 2 or 3)：");
+            System.out.println("1.管理员");
+            System.out.println("2.用户");
+            System.out.println("3.退出电商购物车系统");
+            int n = scanner.nextInt();
+            switch(n){
+                case 1:
+                    try{
+                        managerMune();
+                    }
+                    catch(StackOverflowError e){
+                        System.out.println("捕获到栈溢出错误");
+                    }
+                    break;
+                case 2:
+                    try{
+                        userMenu();
+                    }
+                    catch(StackOverflowError e){
+                        System.out.println("捕获到栈溢出错误");
+                    }
+                    break;
+                case 3:
+                    running = false;
+                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("无效选择，请重新输入！");
+            }
         }
+        scanner.close();
     }
     public static void managerMune(){
         usAndma = true;
