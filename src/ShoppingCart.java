@@ -38,6 +38,16 @@ public class ShoppingCart {
         createTime = new Date();
     }
 
+    public void setCreateTime(Date createTime) 
+    {
+        this.createTime = createTime;
+    }
+
+    public Date getCreateTime() 
+    {
+        return createTime;
+    }
+
     public void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
     {
         if (products.containsKey(item.getProduct().getId())
