@@ -79,17 +79,9 @@ public class ShoppingCart {
         }
     }
 
-    public List<CartItem> getItems() {
-        return items;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime)  // 时间获取应为本地时间,用于后续订单号使用  ####是否有必要有这个函数?
+    public List<CartItem> getItems() 
     {
-        this.createTime = createTime;
+        return items;
     }
 
     public Order getOrder(IProduct product)  // 生成订单

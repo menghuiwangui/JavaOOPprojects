@@ -11,11 +11,23 @@ public class Order {
     private double totalAmount;   // 总金额
     private Short status;   // 状态：0-下单；1-支付；2-发货；3-收货；-1-取消
 
-    public Order(CartItem item) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdHHmmss");
-        Date createTime = new Date(System.currentTimeMillis());
-        orderId = formatter.format(createTime.toString() + item.getProduct().getId());  // 订单号为当前时间 + 商品编号
-        orderTime = new Date();
+    public Order(CartItem item) 
+    {
+        // 空判断
+        if (item == null || item.getProduct() == null) 
+        {
+            throw new IllegalArgumentException("购物项不能为空");
+        }
+
+        // 时间格式化
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date now = new Date();
+        String time = sdf.format(now);
+
+        // 唯一订单号
+        orderId = time + item.getProduct().getId() + (int)(Math.random()*900+100);
+
+        orderTime = now;
         totalAmount = item.calculateSubtotal();
         status = 0;
     }
