@@ -4,7 +4,7 @@ import java.util.Objects;
 
 // 商品库
 public class ProductHouse {
-    private Map<String, IProduct> products; // 商品库
+    private final Map<String, IProduct> products; // 商品库
     public ProductHouse(){
         products = new HashMap<>();
     }
@@ -104,7 +104,7 @@ public class ProductHouse {
         }
     }
 
-    public Map<String, IProduct> returnProducts(){
+    Map<String, IProduct> returnProducts(){
         return this.products;
     }
 }

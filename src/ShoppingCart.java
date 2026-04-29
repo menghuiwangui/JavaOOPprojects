@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 // 购物车项
 class CartItem {
-    private IProduct product;     // 商品
+    private final IProduct product;     // 商品
     private int quantity;        // 数量
 
     public CartItem(IProduct product,int quantity){
@@ -30,11 +30,11 @@ class CartItem {
 
 // 购物车
 public class ShoppingCart {
-    private List<CartItem> items;  // 购物车项
+    private final List<CartItem> items;  // 购物车项
     private Date createTime;       // 创建时间
 
     public ShoppingCart() {
-        items = new ArrayList<CartItem>();
+        items = new ArrayList<>();
         createTime = new Date();
     }
 
@@ -48,7 +48,7 @@ public class ShoppingCart {
         return createTime;
     }
 
-    public void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
+    void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
     {
         if (products.containsKey(item.getProduct().getId())
                 && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
@@ -63,12 +63,12 @@ public class ShoppingCart {
         // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串
     }
 
-    public void removeProduct(CartItem item)  // 删除商品
+    void removeProduct(CartItem item)  // 删除商品
     {
         items.remove(item);
     }
 
-    public void modifyQuantity(CartItem item, int quantity)  // 修改数量
+    void modifyQuantity(CartItem item, int quantity)  // 修改数量
     {
         items.get(items.indexOf(item)).changeQuantity(quantity);
     }
@@ -89,12 +89,12 @@ public class ShoppingCart {
         }
     }
 
-    public List<CartItem> getItems() 
+    List<CartItem> getItems()
     {
         return items;
     }
 
-    public Order getOrder(IProduct product)  // 生成订单
+    Order getOrder(IProduct product)  // 生成订单
     {
         for (CartItem item : items) {
             if (item.getProduct().getId().equals(product.getId())) {
@@ -110,13 +110,17 @@ public class ShoppingCart {
 
     public void printItems()  // 打印购物车项
     {
+        if(items.isEmpty()){
+            System.out.println("购物车内无商品");
+            return;
+        }
         for (CartItem item : items) 
         {
             if (item != null){
-                System.out.println(item.getProduct().getName() + " 数量：" + item.getQuantity());
+                IProduct product = item.getProduct();
+                System.out.println(product.getId()+product.getName()+product.getPrice()+product.getCategory()+item.getQuantity());
             }
         }
     }
-
     // ... 添加商品、删除商品、修改数量、计算总价
 }

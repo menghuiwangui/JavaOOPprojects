@@ -209,16 +209,7 @@ public class Main {
         String id;
         switch (n){
             case 1:
-                if(items.isEmpty()){
-                    System.out.println("购物车内无商品");
-                    break;
-                }
-                else{
-                    for(CartItem item : items){
-                        IProduct product = item.getProduct();
-                        System.out.println(product.getId()+product.getName()+product.getPrice()+product.getCategory()+item.getQuantity());
-                    }
-                }
+                sc.printItems();
                 break;
             case 2:
                 System.out.println("请输入要删除的商品ID");
@@ -247,6 +238,10 @@ public class Main {
                 break;
             case 5:
                 sc.emptyCart();//函数不对
+
+
+
+
                 break;
             case 6:
                 userMenu();
@@ -259,6 +254,39 @@ public class Main {
 
     }
     public static void orderPlace(){
+        System.out.println("=".repeat(20)+"订单结算"+"=".repeat(20));
+        System.out.println("1.全部下单");
+        System.out.println("2.部分下单");
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        switch (n){
+            case 1:
+                List<CartItem> items = sc.getItems();
+                if(items.isEmpty()){
+                    System.out.println("购物车内无商品");
+                    break;
+                }
+                else{
+                    for(CartItem item : items){
+                        IProduct product = item.getProduct();
+                        Order order = sc.getOrder(product);
+                        ol.addOrder(order);
+                    }
+                }
+                break;
+            case 2:
+                sc.printItems();
+                System.out.println("请输入想要下单的商品ID：(如果想结束下单请输入over)");
+                String id = scanner.nextLine();
+                while(!"over".equalsIgnoreCase(id)){
+                    IProduct product = ph.getProduct(id);
+                    Order order = sc.getOrder(product);
+                    ol.addOrder(order);
+                    id = scanner.nextLine();
+                }
+                break;
+
+        }
         //下单结算
         //将订单添加到ol
         //ol.addOrder()

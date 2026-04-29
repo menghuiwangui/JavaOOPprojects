@@ -5,13 +5,13 @@ import java.util.Map;
 
 // 订单
 public class Order {
-    private String orderId;       // 订单号
+    private  final String orderId;       // 订单号
     private CartItem item;        // 订单项
-    private Date orderTime;       // 下单时间
-    private double totalAmount;   // 总金额
+    private  final Date orderTime;       // 下单时间
+    private final double totalAmount;   // 总金额
     private Short status;   // 状态：0-下单；1-支付；2-发货；3-收货；-1-取消
 
-    public Order(CartItem item) 
+    Order(CartItem item)
     {
         // 空判断
         if (item == null || item.getProduct() == null) 
@@ -38,7 +38,7 @@ public class Order {
         status = 1;
     }
 
-    public void deliver(Map<String, Product> products) // 发货
+    void deliver(Map<String, Product> products) // 发货
     {
         System.out.println("商品已发货!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() - item.getQuantity()); // 发货后，数量出库
@@ -51,7 +51,7 @@ public class Order {
         status = 3;
     }
 
-    public void cancel(Map<String, Product> products) // 取消,对应的OrderList类中的订单也要删除
+    void cancel(Map<String, Product> products) // 取消,对应的OrderList类中的订单也要删除
     {
         System.out.println("订单已取消!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() + item.getQuantity()); // 取消后，数量入库
@@ -66,8 +66,12 @@ public class Order {
         return orderId;
     }
 
-    public CartItem getItem() {
+    CartItem getItem() {
         return item;
+    }
+
+    public int returnStatus(){
+        return status;
     }
 
     public Date getOrderTime() {
