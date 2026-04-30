@@ -21,7 +21,8 @@ public class Main
             System.out.println("捕获到栈溢出错误");
         }
     }
-    public static void mainMenu(){
+    public static void mainMenu()  // 主菜单，暂无问题
+    {
         while(true){
             System.out.println("\n\n" + "==========================" + "简易电商购物车系统" + "==========================");
             System.out.println("选择你的身份(输入数字 1 or 2 or 3):");
@@ -117,10 +118,10 @@ public class Main
                 case 1:  // 暂无问题
                     productsBrowse();
                     break;
-                case 2:  // 
+                case 2:  // 暂无问题
                     cartAdd();
                     break;
-                case 3:
+                case 3:  // 用户购物车管理 暂无问题
                     cartManager();
                     break;
                 case 4:
@@ -205,7 +206,7 @@ public class Main
             System.out.printf("商品:[%s %s] 下架失败%n", id, ph.getProduct(id).getName());
         }
     }
-    public static void cartAdd()  // 
+    public static void cartAdd()  // 暂无问题
     {
         System.out.println("请输入要加入购物车的商品ID");
         String id = scanner.nextLine();
@@ -217,7 +218,7 @@ public class Main
         sc.addProducts(cartItem,ph.returnProducts());
     }
 
-    public static void cartManager()
+    public static void cartManager()  // 用户购物车管理 暂无问题
     {
         while (true)
         {
@@ -236,10 +237,10 @@ public class Main
             String id;
             switch (n)
             {
-                case 1:  // 购物车商品浏览  暂无问题
+                case 1:  // 购物车商品浏览 暂无问题
                     sc.printItems(); 
                     break;
-                case 2:  // 删除商品 
+                case 2:  // 删除商品 暂无问题
                     System.out.println("请输入要删除的商品ID");
                     id = scanner.nextLine();
                     boolean delete = false;
@@ -257,7 +258,7 @@ public class Main
                         System.out.println("商品不存在");
                     }
                     break;
-                case 3:
+                case 3:  // 修改商品数量 暂无问题
                     System.out.println("请输入要修改数量的商品ID");
                     id = scanner.nextLine();
                     System.out.println("请输入要修改的数量");
@@ -277,10 +278,10 @@ public class Main
                         }
                     }
                     break;
-                case 4:
+                case 4:  // 计算价格总数 暂无问题
                     System.out.println(sc.calculateTotalAmount());
                     break;
-                case 5:
+                case 5:  // 清空购物车 暂无问题
                     if(!sc.getItems().isEmpty())
                     {
                         System.out.println("尚有商品未下单，是否清空(yes or no)");
@@ -305,44 +306,51 @@ public static void orderPlace(){
         System.out.println("2.部分生成");
         int n = scanner.nextInt();
         scanner.nextLine();
-        switch (n){
-            case 1:
-                List<CartItem> items = sc.getItems();
-                if(items.isEmpty()){
-                    System.out.println("购物车内无商品");
-                    break;
-                }
-                else{
-                    List<Order> successfulOrders = new ArrayList<>();
-                    Iterator<CartItem> iterator = items.iterator();
-                    while (iterator.hasNext()) {
-                        CartItem item = iterator.next();
-                        IProduct product = item.getProduct();
-                        try {
-                            Order order = new Order(item);
-                            successfulOrders.add(order);
-                            iterator.remove();
-                            System.out.println("已生成订单: " + order.getOrderId());
-                        } catch (IllegalArgumentException e) {
-                            System.err.println("生成订单失败 for product " + product.getId() + ": " + e.getMessage());
+        while (true)
+        {
+            switch (n)
+            {
+                case 1:  // 全部生成订单 暂无问题
+                    List<CartItem> items = sc.getItems();
+                    if(items.isEmpty()){
+                        System.out.println("购物车内无商品");
+                        break;
+                    }
+                    else{
+                        List<Order> successfulOrders = new ArrayList<>();
+                        Iterator<CartItem> iterator = items.iterator();
+                        while (iterator.hasNext()) {
+                            CartItem item = iterator.next();
+                            IProduct product = item.getProduct();
+                            try {
+                                Order order = new Order(item);
+                                successfulOrders.add(order);
+                                iterator.remove();
+                                System.out.println("已生成订单: " + order.getOrderId());
+                            } catch (IllegalArgumentException e) {
+                                System.err.println("生成订单失败 for product " + product.getId() + ": " + e.getMessage());
+                            }
+                        }
+                        for (Order order : successfulOrders) {
+                            ol.addOrder(order);
                         }
                     }
-                    for (Order order : successfulOrders) {
+                    return;
+                case 2:  // 部分生成订单
+                    sc.printItems();
+                    System.out.println("请输入想要下单的商品ID:(如果想结束下单请输入over)");
+                    String id = scanner.nextLine();
+                    while(!"over".equalsIgnoreCase(id)){
+                        IProduct product = ph.getProduct(id);
+                        Order order = sc.getOrder(product);
                         ol.addOrder(order);
+                        id = scanner.nextLine();
                     }
-                }
-                break;
-            case 2:
-                sc.printItems();
-                System.out.println("请输入想要下单的商品ID：(如果想结束下单请输入over)");
-                String id = scanner.nextLine();
-                while(!"over".equalsIgnoreCase(id)){
-                    IProduct product = ph.getProduct(id);
-                    Order order = sc.getOrder(product);
-                    ol.addOrder(order);
-                    id = scanner.nextLine();
-                }
-                break;
+                    return;
+                default:
+                    System.out.println("输入错误，请重新输入");
+                    return;
+            }
         }
     }
     public static void myOrder(){

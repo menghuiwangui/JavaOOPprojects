@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.text.DecimalFormat;
 
 // 购物车项
 class CartItem 
@@ -53,21 +54,30 @@ public class ShoppingCart
 
     void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
     {
-        if (products.containsKey(item.getProduct().getId())
-                && item.getQuantity() < products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
+        boolean exist = false;
+        for (CartItem i : items)  // 判断购物车内是否已经存在该商品
         {
-            if (items.contains(item))
+            if (i != null && i.getProduct() != null && item != null && item.getProduct() != null)
             {
-                modifyQuantity(item,item.getQuantity() + items.get(items.indexOf(item)).getQuantity());
+                if (i.getProduct().getId().equals(item.getProduct().getId()))  // 有则直接修改数量
+                {
+                    modifyQuantity(i,i.getQuantity() + item.getQuantity());
+                    exist = true;
+                    return;
+                }
             }
-            else
-            {
-                items.add(item);
-            }
-        } 
-        else 
+        }
+        if (!exist)  // 无则添加
         {
-            System.out.println("库存不足！");
+            if (products.containsKey(item.getProduct().getId())
+                        && item.getQuantity() <= products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
+                {
+                    items.add(item);
+                } 
+                else 
+                {
+                    System.out.println("库存不足！");
+                }
         }
         // 时间获取应为本地时间,用于后续订单号使用
         // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串
@@ -83,20 +93,21 @@ public class ShoppingCart
         items.get(items.indexOf(item)).changeQuantity(quantity);
     }
 
-    public double calculateTotalAmount()  // 计算总价  ####后续考虑折扣问题
+    public String calculateTotalAmount()  // 计算总价  ####后续考虑折扣问题
     {
         double totalamount = 0.0;
         for (CartItem item : items) {
-            totalamount += item.calculateSubtotal() * item.getQuantity();
+            if (item != null){
+                totalamount += item.calculateSubtotal() * item.getQuantity();
+            }
         }
-        return totalamount;
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(totalamount);
     }
 
     public void emptyCart()  // 清空购物车
     {
-        for (CartItem item : items) {
-            items.remove(item);
-        }
+        items.clear();
     }
 
     List<CartItem> getItems()
