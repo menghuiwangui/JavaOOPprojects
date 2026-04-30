@@ -124,7 +124,7 @@ public class Main
                 case 3:  // 用户购物车管理 暂无问题
                     cartManager();
                     break;
-                case 4:
+                case 4:  // 用户订单生成 暂无问题
                     orderPlace();
                     break;
                 case 5:
@@ -300,7 +300,7 @@ public class Main
             }
         }  
     }
-public static void orderPlace(){
+    public static void orderPlace(){
         System.out.println("\n\n" + "==========================" + "订单生成" + "==========================");
         System.out.println("1.全部生成");
         System.out.println("2.部分生成");
@@ -337,7 +337,8 @@ public static void orderPlace(){
                     }
                     return;
                 case 2:  // 部分生成订单
-                    sc.printItems();
+
+                sc.printItems();
                     System.out.println("请输入想要下单的商品ID:(如果想结束下单请输入over)");
                     String id = scanner.nextLine();
                     while(!"over".equalsIgnoreCase(id)){

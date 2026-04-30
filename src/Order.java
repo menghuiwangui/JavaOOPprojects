@@ -19,6 +19,8 @@ public class Order {
             throw new IllegalArgumentException("购物项不能为空");
         }
 
+        this.item = item;
+
         // 时间格式化
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date now = new Date();
