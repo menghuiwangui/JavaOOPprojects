@@ -98,7 +98,7 @@ public class ShoppingCart
         double totalamount = 0.0;
         for (CartItem item : items) {
             if (item != null){
-                totalamount += item.calculateSubtotal() * item.getQuantity();
+                totalamount += item.calculateSubtotal();
             }
         }
         DecimalFormat df = new DecimalFormat("#.00");
