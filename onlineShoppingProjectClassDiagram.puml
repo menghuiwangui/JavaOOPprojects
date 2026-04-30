@@ -2,7 +2,6 @@
 class CartItem {
 - IProduct product
 - int quantity
-+ <<Create>> CartItem(IProduct,int)
 + void changeQuantity(int)
 + double calculateSubtotal()
 + IProduct getProduct()
@@ -13,13 +12,12 @@ class CartItem {
 class ShoppingCart {
 - List<CartItem> items
 - Date createTime
-+ <<Create>> ShoppingCart()
 + void setCreateTime(Date)
 + Date getCreateTime()
 ~ void addProducts(CartItem,Map<String,IProduct>)
 ~ void removeProduct(CartItem)
 ~ void modifyQuantity(CartItem,int)
-+ double calculateTotalAmount()
++ String calculateTotalAmount()
 + void emptyCart()
 ~ List<CartItem> getItems()
 ~ Order getOrder(IProduct)
@@ -29,7 +27,6 @@ class ShoppingCart {
 
 class ProductHouse {
 - Map<String,IProduct> products
-+ <<Create>> ProductHouse()
 ~ boolean addProduct(IProduct)
 ~ IProduct getProduct(String)
 + boolean removeProduct(String)
@@ -48,7 +45,6 @@ enum OrderStatus {
 +  CANCELLED
 - int code
 - String description
-~ <<Create>> OrderStatus(int,String)
 + int getCode()
 + String getDescription()
 + {static} OrderStatus getByCode(int)
@@ -58,7 +54,6 @@ enum OrderStatus {
 
 class OrderList {
 - ArrayList<Order> orderList
-+ <<Create>> OrderList()
 + void addOrder(Order)
 + void removeOrder(Order)
 + void showAllOrders()
@@ -72,6 +67,7 @@ class Main {
 ~ {static} ShoppingCart sc
 ~ {static} OrderList ol
 ~ {static} boolean usAndma
+~ {static} Scanner scanner
 + {static} void main(String[])
 + {static} void mainMenu()
 + {static} void managerMune()
@@ -83,7 +79,7 @@ class Main {
 + {static} void cartManager()
 + {static} void orderPlace()
 + {static} void myOrder()
-+ {static} void ordermanager()
++ {static} void orderManager()
 }
 
 
@@ -106,7 +102,6 @@ class Product {
 - double price
 - int stock
 - String category
-+ <<Create>> Product(String,String,double,int,String)
 + String getId()
 + String getName()
 + double getPrice()
@@ -130,7 +125,6 @@ class Order {
 - Date orderTime
 - double totalAmount
 - Short status
-~ <<Create>> Order(CartItem)
 + void pay()
 ~ void deliver(Map<String,IProduct>)
 + void receive()
