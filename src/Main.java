@@ -131,7 +131,7 @@ public class Main
                     myOrder();
                     break;
                 case 6:
-                    ordermanager();
+                    orderManager();
                     break;
                 case 7:
                     mainMenu();
@@ -303,13 +303,13 @@ public class Main
         }  
     }
 public static void orderPlace(){
-        System.out.println("\n\n" + "==========================" + "订单生成" + "==========================");
-        System.out.println("1.全部生成");
-        System.out.println("2.部分生成");
-        int n = scanner.nextInt();
-        scanner.nextLine();
         while (true)
         {
+            System.out.println("\n\n" + "==========================" + "订单生成" + "==========================");
+            System.out.println("1.全部生成");
+            System.out.println("2.部分生成");
+            int n = scanner.nextInt();
+            scanner.nextLine();
             switch (n)
             {
                 case 1:  // 全部生成订单 暂无问题
@@ -337,7 +337,7 @@ public static void orderPlace(){
                             ol.addOrder(order);
                         }
                     }
-                    return;
+                    break;
                 case 2:  // 部分生成订单
                     sc.printItems();
                     System.out.println("请输入想要下单的商品ID:(如果想结束下单请输入over)");
@@ -348,10 +348,10 @@ public static void orderPlace(){
                         ol.addOrder(order);
                         id = scanner.nextLine();
                     }
-                    return;
+                    break;
                 default:
                     System.out.println("输入错误，请重新输入");
-                    return;
+                    break;
             }
         }
     }
@@ -363,7 +363,7 @@ public static void orderPlace(){
             ol.showAllOrders();
         }
     }
-    public static void ordermanager(){
+    public static void orderManager(){
         while (true)
         {
             System.out.println("\n\n" + "==========================" + "订单管理" + "==========================");
