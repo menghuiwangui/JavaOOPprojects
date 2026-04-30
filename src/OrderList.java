@@ -54,7 +54,7 @@ public class OrderList
 
     public OrderList() 
     {
-        orderList = new ArrayList<Order>();
+        orderList = new ArrayList<>();
     }
 
     public void addOrder(Order order) 

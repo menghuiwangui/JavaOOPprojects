@@ -156,10 +156,12 @@ public class Main
                 ph.readProducts();
                 break;
             case 2:
+                System.out.println("请输入商品名字：");
                 String name = scanner.nextLine();
                 ph.readNameProducts(name);
                 break;
             case 3:
+                System.out.println("请输入商品类别：");
                 String category = scanner.nextLine();
                 ph.readSortedProducts(category);
                 break;
