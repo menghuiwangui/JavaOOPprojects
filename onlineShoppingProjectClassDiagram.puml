@@ -134,6 +134,7 @@ class Order {
 ~ CartItem getItem()
 + Date getOrderTime()
 + Short getStatus()
++ void setOrderTime()
 }
 
 
