@@ -1,8 +1,7 @@
-import java.util.List;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
-public class Main 
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Main
 {
     static ProductHouse ph;  //商品库
     static ShoppingCart sc;  //购物车
@@ -328,7 +327,9 @@ public static void orderPlace(){
                                 Order order = new Order(item);
                                 successfulOrders.add(order);
                                 iterator.remove();
-                                System.out.println("已生成订单: " + order.getOrderId());
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String time = sdf.format(order.getOrderTime());
+                                System.out.println("已生成订单: " + order.getOrderId()+" "+time);
                             } catch (IllegalArgumentException e) {
                                 System.err.println("生成订单失败 for product " + product.getId() + ": " + e.getMessage());
                             }

@@ -7,7 +7,7 @@ import java.util.Map;
 public class Order {
     private  final String orderId;       // 订单号
     private CartItem item;        // 订单项
-    private  final Date orderTime;       // 下单时间
+    private  Date orderTime;       // 下单时间
     private final double totalAmount;   // 总金额
     private Short status;   // 状态：0-下单；1-支付；2-发货；3-收货；-1-取消
 
@@ -36,12 +36,14 @@ public class Order {
 
     public void pay() // 支付
     {
+        setOrderTime();
         System.out.println("你需要支付 : " + totalAmount + " 元!");
         status = 1;
     }
 
     void deliver(Map<String, IProduct> products) // 发货
     {
+        setOrderTime();
         System.out.println("商品已发货!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() - item.getQuantity()); // 发货后，数量出库
         status = 2;
@@ -49,12 +51,14 @@ public class Order {
 
     public void receive() // 收货,对应的OrderList类中的订单也要删除
     {
+        setOrderTime();
         System.out.println("商品已收货!");
         status = 3;
     }
 
     void cancel(Map<String, IProduct> products) // 取消,对应的OrderList类中的订单也要删除
     {
+        setOrderTime();
         System.out.println("订单已取消!");
         products.get(item.getProduct().getId()).setStock(products.get(item.getProduct().getId()).getStock() + item.getQuantity()); // 取消后，数量入库
         status = -1;
@@ -80,6 +84,11 @@ public class Order {
         return status;
     }
     // ... 构造器、计算方法
+
+    public void setOrderTime() {
+        this.orderTime = new Date();
+    }
+
 
     // 主程序中用户在购物车中生成订单，调用订单方法，如：下单，支付，发货，收货。
     // 订单类中包含订单号、订单项、下单时间、总金额、状态等信息，并提供相应方法。

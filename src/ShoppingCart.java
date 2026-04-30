@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +124,9 @@ Order getOrder(IProduct product) {
                 if (item.getProduct().getId().equals(product.getId())) {
                     try {
                         Order order = new Order(item);
-                        System.out.println("已生成订单: " + order.getOrderId());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String time = sdf.format(order.getOrderTime());
+                        System.out.println("已生成订单: " + order.getOrderId()+" "+time);
                         iterator.remove();
                         return order;
                     } catch (IllegalArgumentException e) {

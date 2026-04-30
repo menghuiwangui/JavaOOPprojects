@@ -1,4 +1,6 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 enum OrderStatus {
     // 枚举常量及其关联的值
@@ -83,7 +85,9 @@ public class OrderList
                     else{
                         description = "状态异常";
                     }
-                        System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount() + description);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String time = sdf.format(order.getOrderTime());
+                    System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount() + " " + description + " " +time);
                 }
             }
         }
