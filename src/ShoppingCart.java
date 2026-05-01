@@ -7,8 +7,7 @@ import java.util.Iterator;
 import java.text.DecimalFormat;
 
 // 购物车项
-class CartItem 
-{
+class CartItem {
     private final IProduct product;     // 商品
     private int quantity;        // 数量
 
@@ -33,8 +32,7 @@ class CartItem
 }
 
 // 购物车
-public class ShoppingCart 
-{
+public class ShoppingCart {
     private final List<CartItem> items;  // 购物车项
     private Date createTime;       // 创建时间
 
@@ -43,45 +41,38 @@ public class ShoppingCart
         createTime = new Date();
     }
 
-    public void setCreateTime(Date createTime) 
-    {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Date getCreateTime() 
-    {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    void addProducts(CartItem item, Map<String, IProduct> products)  // 添加商品
-    {
+    void addProducts(CartItem item, Map<String, IProduct> products){  // 添加商品
         boolean exist = false;
-        for (CartItem i : items)  // 判断购物车内是否已经存在该商品
-        {
-            if (i != null && i.getProduct() != null && item != null && item.getProduct() != null)
-            {
-                if (i.getProduct().getId().equals(item.getProduct().getId()))  // 有则直接修改数量
-                {
+        for (CartItem i : items){  // 判断购物车内是否已经存在该商品
+            if (i != null && i.getProduct() != null && item != null && item.getProduct() != null) {
+                if (i.getProduct().getId().equals(item.getProduct().getId()) && (i.getQuantity() + item.getQuantity()) <= products.get(item.getProduct().getId()).getStock()){  // 有则直接修改数量
                     modifyQuantity(i,i.getQuantity() + item.getQuantity());
-                    exist = true;
                     return;
+                }
+                else{
+                    exist = true;
+                    System.out.println("库存不足！");
                 }
             }
         }
         if (!exist)  // 无则添加
         {
             if (products.containsKey(item.getProduct().getId())
-                        && item.getQuantity() <= products.get(item.getProduct().getId()).getStock())  // 判断库存，有则加入购物车
-                {
-                    items.add(item);
-                } 
-                else 
-                {
-                    System.out.println("库存不足！");
-                }
+                    && item.getQuantity() <= products.get(item.getProduct().getId()).getStock()){  // 判断库存，有则加入购物车
+                items.add(item);
+            }
+            else {
+                System.out.println("库存不足！");
+            }
         }
-        // 时间获取应为本地时间,用于后续订单号使用
-        // 直接使用 formatter.format(createTime) 即可获取格式化的时间字符串
     }
 
     void removeProduct(CartItem item)  // 删除商品
