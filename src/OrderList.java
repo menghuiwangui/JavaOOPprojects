@@ -94,11 +94,11 @@ public class OrderList
         else
             System.out.println("没有订单!");
     }
-    public ArrayList<Order> returnOrders(){
+    public ArrayList<Order> getOrderList(){
         return orderList;
     }
     //依据订单号查询
-    public Order getOrder(String orderId){
+    public Order getOrderByOrderId(String orderId){
         for(Order order : orderList){
             if(order.getOrderId().equals(orderId)){
                 return order;

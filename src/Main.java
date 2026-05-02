@@ -1,5 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.io.IOException;
 
 public class Main
 {
@@ -19,6 +20,10 @@ public class Main
         catch(StackOverflowError e){
             System.out.println("捕获到栈溢出错误");
         }
+    }
+    public static void exit_program(){
+        scanner.close();//加入scanner已经关闭了再调用不会抛出异常
+        System.out.println("简易电商购物车系统正在退出，感谢您的使用");
     }
     public static void mainMenu()  // 主菜单，暂无问题
     {
@@ -359,7 +364,7 @@ public static void orderPlace(){
         }
     }
     public static void myOrder(){
-        if(ol.returnOrders().isEmpty()){
+        if(ol.getOrderList().isEmpty()){
             System.out.println("暂时没有订单");
         }
         else{
@@ -385,18 +390,18 @@ public static void orderPlace(){
                 case 1:
                     System.out.println("请输入要支付的订单号");
                     orderId = scanner.nextLine();
-                    order = ol.getOrder(orderId);
+                    order = ol.getOrderByOrderId(orderId);
                     if(order == null){
                         System.out.println("未找到该订单");
                     }
                     else{
-                        order.pay();
+                        order.pay(scanner);
                     }
                     break;
                 case 2:
                     System.out.println("请输入要发货的订单号");
                     orderId = scanner.nextLine();
-                    order = ol.getOrder(orderId);
+                    order = ol.getOrderByOrderId(orderId);
                     if(order == null){
                         System.out.println("未找到该订单");
                     }
@@ -407,7 +412,7 @@ public static void orderPlace(){
                 case 3:
                     System.out.println("请输入要收货的订单号");
                     orderId = scanner.nextLine();
-                    order = ol.getOrder(orderId);
+                    order = ol.getOrderByOrderId(orderId);
                     if(order == null){
                         System.out.println("未找到该订单");
                     }
@@ -418,7 +423,7 @@ public static void orderPlace(){
                 case 4:
                     System.out.println("请输入要取消的订单号");
                     orderId = scanner.nextLine();
-                    order = ol.getOrder(orderId);
+                    order = ol.getOrderByOrderId(orderId);
                     if(order == null){
                         System.out.println("未找到该订单");
                     }
