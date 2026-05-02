@@ -1,6 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 enum OrderStatus {
     // 枚举常量及其关联的值
@@ -105,5 +105,15 @@ public class OrderList
             }
         }
         return null;
+    }
+
+    List<Order> getOrdersByStatus(OrderStatus status) {
+        List<Order> result = new ArrayList<>();
+        for (Order order : orderList) {
+            if (order.getStatus() == status.getCode()) { // 枚举比较用 ==
+                result.add(order);
+            }
+        }
+        return result;
     }
 }

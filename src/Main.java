@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.io.IOException;
 
 public class Main
 {
@@ -368,7 +367,51 @@ public static void orderPlace(){
             System.out.println("暂时没有订单");
         }
         else{
-            ol.showAllOrders();
+            System.out.println("\n\n" + "==========================" + "订单查询" + "==========================");
+            System.out.println("1. 查看所有订单");
+            System.out.println("2. 按状态查询订单");
+            System.out.print("请输入选项：");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 1:
+                    ol.showAllOrders();
+                    break;
+                case 2:
+                    System.out.println("\n===== 订单状态 =====");
+                    for (OrderStatus status : OrderStatus.values()) {
+                        System.out.println(status.ordinal() + ". " + status.getDescription());
+                    }
+                    System.out.print("请选择状态（输入序号）：");
+                    int statusChoice = scanner.nextInt();
+                    scanner.nextLine();
+                    // 根据序号获取枚举
+                    OrderStatus selectedStatus = OrderStatus.values()[statusChoice];
+                    // 调用按状态查询
+                    List<Order> filteredOrders = ol.getOrdersByStatus(selectedStatus);
+                    if (filteredOrders.isEmpty()) {
+                        System.out.println("暂无【" + selectedStatus.getDescription() + "】的订单");
+                    } else {
+                        System.out.println("\n【" + selectedStatus.getDescription() + "】的订单：");
+                        for (Order order : filteredOrders) {
+                            if (order != null) {
+                                OrderStatus status = OrderStatus.getByCode(order.getStatus());
+                                String description;
+                                if (status != null) {
+                                    description = status.getDescription();
+                                } else {
+                                    description = "状态异常";
+                                }
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                String time = sdf.format(order.getOrderTime());
+                                System.out.println(order.getOrderId() + " " + order.getItem().getProduct().getName() + " " + order.getItem().getQuantity() + " " + order.getTotalAmount() + " " + description + " " + time);
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    System.out.println("输入错误，请重新选择");
+            }
         }
     }
     public static void orderManager(){
