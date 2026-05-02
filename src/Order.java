@@ -21,13 +21,26 @@ enum PaymentMethod {
         return description;
     }
 
+
     public static PaymentMethod fromChoice(int choice) {
+        switch (choice) {
+            case 1:
+                return PaymentMethod.WECHAT;
+            case 2:
+                return PaymentMethod.ALIPAY;
+            case 3:
+                return PaymentMethod.CANCEL;
+            default:
+                throw new IllegalArgumentException("无效的选项: " + choice);
+        }
+        /* PlantUML parse解析不了
         return switch (choice) {
             case 1 -> WECHAT;
             case 2 -> ALIPAY;
             case 3 -> CANCEL;
             default -> throw new IllegalArgumentException("无效的选项: " + choice);
         };
+         */
     }
 }
 

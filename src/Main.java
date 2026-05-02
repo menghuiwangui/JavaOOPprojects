@@ -349,7 +349,7 @@ public static void orderPlace(){
                 sc.printItems();
                     System.out.println("请输入想要下单的商品ID:(如果想结束下单请输入over)");
                     String id = scanner.nextLine();
-                    while(!"over".equalsIgnoreCase(id)){
+                    while(!"over".equalsIgnoreCase(scanner.nextLine())){
                         IProduct product = ph.getProduct(id);
                         Order order = sc.getOrder(product);
                         ol.addOrder(order);
