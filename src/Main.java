@@ -53,7 +53,7 @@ public class Main
                     }
                     break;
                 case 3:
-                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    exit_program();
                     break;
                 default:
                     System.out.println("无效选择，请重新输入！");
@@ -94,7 +94,8 @@ public class Main
                     }
                     break;
                 case 5:
-                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    exit_program();
+                    break;
                 default:
                     System.out.println("输入错误，请重新输入");
             }
@@ -140,7 +141,7 @@ public class Main
                     mainMenu();
                     break;
                 case 8:
-                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    exit_program();
                     break;
             }
         }
@@ -169,7 +170,7 @@ public class Main
                 ph.readSortedProducts(category);
                 break;
             case 4:
-                System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                exit_program();
                 break;
         }
         if(usAndma){
@@ -300,7 +301,7 @@ public class Main
                     userMenu();
                     break;
                 case 7:
-                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    exit_program();
                     break;
             }
         }  
@@ -476,7 +477,7 @@ public static void orderPlace(){
                 case 5:
                     userMenu();
                 case 6:
-                    System.out.println("简易电商购物车系统正在退出，感谢您的使用");
+                    exit_program();
                     break;
             }
         }
