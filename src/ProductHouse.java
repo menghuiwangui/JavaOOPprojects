@@ -85,22 +85,14 @@ public class ProductHouse {
     public void readNameProducts(String name)  // 按名字查询
     {
         boolean found = false;
-        for (IProduct product : products.values())
-        {
-            if (Objects.equals(product.getName(),name))
-            {
+        for (IProduct product : products.values()) {
+            if (product.getName().equalsIgnoreCase(name)){  // 添加模糊查询功能
                 System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
                 found = true;
             }
-            else if (product.getName().equalsIgnoreCase(name))  // 添加模糊查询功能
-            {
-                System.out.println("商品类别: " + product.getCategory() + " " + product.getId() + " " + product.getName() + " " + product.getPrice() + " " + product.getStock());
-                found = true;
-            }
-            
-            if (!found){
-                System.out.println("没有找到名称为: " + name + " 的商品!");
-            }
+        }
+        if (!found){
+            System.out.println("没有找到名称为: " + name + " 的商品!");
         }
     }
 

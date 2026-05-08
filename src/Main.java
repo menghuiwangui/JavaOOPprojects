@@ -217,6 +217,9 @@ public class Main
         System.out.println("请输入要加入购物车的商品ID");
         String id = scanner.nextLine();
         IProduct product = ph.getProduct(id);
+        if(product == null){
+            return;
+        }
         System.out.println("请输入需要购买的商品数量");
         int num = scanner.nextInt();
         scanner.nextLine();
@@ -264,23 +267,21 @@ public class Main
                         System.out.println("商品不存在");
                     }
                     break;
-                case 3:  // 修改商品数量 暂无问题
+                case 3:  // 修改商品数量 有问题不存在的情况没有考虑
                     System.out.println("请输入要修改数量的商品ID");
                     id = scanner.nextLine();
+                    IProduct product = ph.getProduct(id);
+                    if(product == null){
+                        break;
+                    }
                     System.out.println("请输入要修改的数量");
                     int num = scanner.nextInt();
                     scanner.nextLine();
-                    boolean modify = false;
                     for(CartItem item : items){
-                        IProduct product = item.getProduct();
+                        product = item.getProduct();
                         if(product.getId().equals(id)){
                             sc.modifyQuantity(item,num);
-                            modify = true;
                             break;
-                        }
-                        if (!modify)
-                        {
-                            System.out.println("商品不存在!");
                         }
                     }
                     break;
@@ -295,6 +296,9 @@ public class Main
                         {
                             sc.emptyCart();
                         }
+                    }
+                    else{
+                        System.out.println("购物车已经为空");
                     }
                     break;
                 case 6:
@@ -346,7 +350,10 @@ public static void orderPlace(){
                     break;
                 case 2:  // 部分生成订单
 
-                sc.printItems();
+                    sc.printItems();
+                    if(sc.getItems().isEmpty()){
+                        break;
+                    }
                     System.out.println("请输入想要下单的商品ID:(如果想结束下单请输入over)");
                     String id = scanner.nextLine();
                     while(!"over".equalsIgnoreCase(scanner.nextLine())){
@@ -474,6 +481,7 @@ public static void orderPlace(){
                     else{
                         order.cancel(ph.returnProducts());
                     }
+                    break;
                 case 5:
                     userMenu();
                 case 6:

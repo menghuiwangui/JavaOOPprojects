@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.text.DecimalFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 // 购物车项
 class CartItem {
@@ -85,21 +87,26 @@ public class ShoppingCart {
         items.get(items.indexOf(item)).changeQuantity(quantity);
     }
 
-    public String calculateTotalAmount()  // 计算总价  ####后续考虑折扣问题
-    {
-        double totalamount = 0.0;
+    public String calculateTotalAmount() {// 计算总价  ####后续考虑折扣问题
+        BigDecimal totalAmount = BigDecimal.ZERO;
+
         for (CartItem item : items) {
-            if (item != null){
-                totalamount += item.calculateSubtotal();
+            if (item != null) {
+                BigDecimal subtotal = BigDecimal.valueOf(item.calculateSubtotal());
+                totalAmount = totalAmount.add(subtotal);
             }
         }
-        DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(totalamount);
+        // 四舍五入到2位小数
+        totalAmount = totalAmount.setScale(2, RoundingMode.HALF_UP);
+        // 格式化为字符串
+        DecimalFormat df = new DecimalFormat("#0.00");
+        return df.format(totalAmount);
     }
 
     public void emptyCart()  // 清空购物车
     {
         items.clear();
+        System.out.println("购物车已清空");
     }
 
     List<CartItem> getItems()
